@@ -1,0 +1,72 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#scores {
+    width: 280px;
+    height: 600px;
+    border: solid black 1px;
+}
+
+#dice-area {
+    position: relative;
+    width: 720px;
+    height: 600px;
+    border: solid black 1px;
+}
+
+#title-screen {
+    position: absolute;
+    font-size: 64px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#held-dice {
+    position: absolute;
+}
+
+#rolled-dice {
+    display: none;
+    column-gap: 10px;
+    position: absolute;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition-duration: 1s;
+}
+
+#rolled-dice button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    width: 100px;
+    background-repeat: no-repeat;
+    transition-duration: 0.25s;
+}
+
+#rolled-dice button:hover {
+    scale: 1.1;
+}
+
+#rerolls {
+    display: none;
+    position: absolute;
+    top: 77%;
+    left: 50%;
+    transform: translate(-50%, -77%);
+}
+
+#roll {
+    font-size: 48px;
+    cursor: pointer;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background-color: transparent;
+    border: none;
+    transition-duration: 0.25s;
+}
