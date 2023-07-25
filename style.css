@@ -23,10 +23,6 @@
     transform: translate(-50%, -50%);
 }
 
-#held-dice {
-    position: absolute;
-}
-
 #rolled-dice {
     display: none;
     column-gap: 10px;
@@ -68,6 +64,8 @@
 }
 
 #roll {
+    width: 100px;
+    height: 60px;
     font-size: 48px;
     cursor: pointer;
     position: absolute;
