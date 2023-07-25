@@ -4,6 +4,8 @@ var rerolls = 3;
 const dice = document.getElementById("rolled-dice");
 const rerollsText = document.getElementById("rerolls");
 
+const diceRollSounds = [new Audio("sounds/diceRoll.mp3"), new Audio("sounds/diceRoll2.mp3"), new Audio("sounds/diceRoll3.mp3")];
+
 for (let die of dice.children)
     die.addEventListener("click", (e) => {
         e.target.classList.toggle("hold");
@@ -50,6 +52,10 @@ function calculateBasicCategories() {
 
 document.getElementById("roll").addEventListener("click", (e) => {
     if (rerolls != 0) {
+        const randomRollSound = Math.floor(Math.random() * 3);
+        console.log(randomRollSound);
+        diceRollSounds[randomRollSound].play();
+        
         e.target.classList.add("shake");
         setTimeout(() => e.target.classList.remove("shake"), 620);
     }
