@@ -48,7 +48,12 @@ function calculateBasicCategories() {
     });
 }
 
-document.getElementById("roll").addEventListener("click", () => {
+document.getElementById("roll").addEventListener("click", (e) => {
+    if (rerolls != 0) {
+        e.target.classList.add("shake");
+        setTimeout(() => e.target.classList.remove("shake"), 620);
+    }
+
     rollDice();
     calculateBasicCategories();
 });
