@@ -7,8 +7,6 @@ const rerollsLeftText = document.getElementById("rerolls");
 for (let die of dice.children)
     die.addEventListener("click", (e) => e.target.classList.toggle("hold"));
 
-document.getElementById("roll").onclick = rollDice;
-
 function rollDice() {
     if (rerollsLeft == 0)
         return;
@@ -27,6 +25,12 @@ function rollDice() {
     rerollsLeft--;
     rerollsLeftText.innerText = `Rerolls left: ${rerollsLeft}`;
 }
+
+function calculateCategories() {
+    return;
+}
+
+document.getElementById("roll").addEventListener("click", () => { rollDice(); calculateCategories(); });
 
 function getRolledDice() {
     const result = [];

@@ -3,16 +3,17 @@
 }
 
 #scores {
+    display: grid;
     width: 280px;
     height: 600px;
-    border: solid black 1px;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(15, 1fr);
 }
 
 #dice-area {
     position: relative;
     width: 720px;
     height: 600px;
-    border: solid black 1px;
 }
 
 #title-screen {
