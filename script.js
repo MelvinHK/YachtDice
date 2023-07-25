@@ -1,12 +1,13 @@
 var isTitleScreen = true;
 var rerolls = 3;
-var currentDiceNumbers = [];
 
 const dice = document.getElementById("rolled-dice");
 const rerollsText = document.getElementById("rerolls");
 
 for (let die of dice.children)
-    die.addEventListener("click", (e) => e.target.classList.toggle("hold"));
+    die.addEventListener("click", (e) => {
+        e.target.classList.toggle("hold");
+    });
 
 function rollDice() {
     if (rerolls == 0)
@@ -17,24 +18,29 @@ function rollDice() {
         rerollsText.style.display = "initial";
         document.getElementById("title-screen").style.display = "none";
         isTitleScreen = false;
-    } else
-        currentDiceNumbers = [];
+    }
 
     for (let die of dice.children)
         if (!die.classList.contains("hold")) {
-            const getRandomNumber = Math.floor(Math.random() * 6) + 1;
-            currentDiceNumbers.push(getRandomNumber);
-            die.style.backgroundImage = `url("dice/${getRandomNumber}.svg")`;
+            const randomDieNumber = Math.floor(Math.random() * 6) + 1;
+            die.value = randomDieNumber;
+            die.style.backgroundImage = `url("dice/${randomDieNumber}.svg")`;
         }
 
-    rerolls--;
-    rerollsText.innerText = `Rerolls left: ${rerolls}`;
+    rerollsText.innerText = `Rerolls left: ${--rerolls}`;
+}
+
+function getDiceNumbers() {
+    const result = [];
+    for (let die of dice.children)
+        result.push(Number(die.value));
+    return result;
 }
 
 function calculateBasicCategories() {
     ["aces", "deuces", "threes", "fours", "fives", "sixes"].forEach((name, index) => {
         var result = 0;
-        currentDiceNumbers.forEach((value) => {
+        getDiceNumbers().forEach((value) => {
             if (value == index + 1)
                 result += value;
         });
