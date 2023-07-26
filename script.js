@@ -104,13 +104,16 @@ function calculateFullHouse() {
 }
 
 function calculateStraights() {
-    var sortedDice = getDiceNumbers().sort();
+    var diceSet = new Set(getDiceNumbers().sort());
+    var setIterator = diceSet.values();
+    setIterator.next();
     var straightCount = 0;
 
-    sortedDice.forEach((value, index) => {
-        if (sortedDice[index + 1] - value == 1)
-            straightCount++;
-    });
+    if (diceSet.size >= 4)
+        diceSet.forEach((value) => {
+            if (setIterator.next().value - value == 1)
+                straightCount++;
+        });
 
     document.getElementById("smallStraight").innerText = (straightCount >= 3) ? 15 : 0;
     document.getElementById("largeStraight").innerText = (straightCount == 4) ? 30 : 0;
