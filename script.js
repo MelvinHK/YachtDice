@@ -50,16 +50,89 @@ function calculateBasicCategories() {
     });
 }
 
+function calculateChoice() {
+    var result = 0;
+    getDiceNumbers().forEach((value) => {
+        result += value;
+    });
+    document.getElementById("choice").innerText = result;
+}
+
+function countOccurence(n) {
+    var result = 0;
+    getDiceNumbers().forEach((value) => {
+        if (value == n)
+            result++;;
+    });
+    return result;
+}
+
+function calculateFourOfKind() {
+    var diceSet = new Set(getDiceNumbers());
+    var isFourOfKind = false;
+    var result = 0;
+
+    if (diceSet.size <= 2)
+        diceSet.forEach((value) => {
+            if (countOccurence(value) == 4) {
+                isFourOfKind = true;
+                result += value * 4;
+            }
+            else
+                result += value;
+        });
+
+    document.getElementById("fourOfKind").innerText = isFourOfKind ? result : 0;
+}
+
+function calculateFullHouse() {
+    var diceSet = new Set(getDiceNumbers());
+    var isFullHouse = false;
+    var result = 0;
+
+    if (diceSet.size == 2)
+        diceSet.forEach((value) => {
+            if (countOccurence(value) == 3) {
+                isFullHouse = true;
+                result += value * 3;
+            }
+            else
+                result += value * 2;
+        });
+
+    document.getElementById("fullHouse").innerText = isFullHouse ? result : 0;
+}
+
+function calculateStraights() {
+    var sortedDice = getDiceNumbers().sort();
+    var straightCount = 0;
+
+    sortedDice.forEach((value, index) => {
+        if (sortedDice[index + 1] - value == 1)
+            straightCount++;
+    });
+
+    document.getElementById("smallStraight").innerText = (straightCount >= 3) ? 15 : 0;
+    document.getElementById("largeStraight").innerText = (straightCount == 4) ? 30 : 0;
+}
+
+function calculateYacht() {
+    var diceSet = new Set(getDiceNumbers());
+    document.getElementById("yacht").innerText = (diceSet.size == 1) ? 50 : 0;
+}
+
 document.getElementById("roll").addEventListener("click", (e) => {
     if (rerolls != 0) {
-        const randomRollSound = Math.floor(Math.random() * 3);
-        console.log(randomRollSound);
-        diceRollSounds[randomRollSound].play();
-        
+        diceRollSounds[Math.floor(Math.random() * 3)].play();
         e.target.classList.add("shake");
         setTimeout(() => e.target.classList.remove("shake"), 620);
     }
 
     rollDice();
     calculateBasicCategories();
+    calculateChoice();
+    calculateFourOfKind();
+    calculateFullHouse();
+    calculateStraights();
+    calculateYacht();
 });
