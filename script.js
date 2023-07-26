@@ -70,7 +70,7 @@ function calculateFourOfKind() {
     var isFourOfKind = false;
     var result = 0;
 
-    if (diceSet.size <= 2)
+    if (diceSet.size == 2)
         diceSet.forEach((value) => {
             if (countOccurence(value) == 4) {
                 isFourOfKind = true;
@@ -80,7 +80,7 @@ function calculateFourOfKind() {
                 result += value;
         });
 
-    document.getElementById("fourOfKind").innerText = isFourOfKind ? result : 0;
+    document.getElementById("fourOfKind").innerText = (diceSet.size == 1 || isFourOfKind) ? result : 0;
 }
 
 function calculateFullHouse() {
