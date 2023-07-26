@@ -52,9 +52,7 @@ function calculateBasicCategories() {
 
 function calculateChoice() {
     var result = 0;
-    getDiceNumbers().forEach((value) => {
-        result += value;
-    });
+    getDiceNumbers().forEach((value) => result += value);
     document.getElementById("choice").innerText = result;
 }
 
@@ -62,7 +60,7 @@ function countOccurence(n) {
     var result = 0;
     getDiceNumbers().forEach((value) => {
         if (value == n)
-            result++;;
+            result++;
     });
     return result;
 }
