@@ -1,5 +1,16 @@
+body {
+    margin: 0;
+}
+
 * {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #scores {
@@ -8,6 +19,22 @@
     height: 600px;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: repeat(15, 1fr);
+    align-items: center;
+    padding-left: 10px;
+}
+
+.cellTop {
+    align-self: start;
+}
+
+.cellBottom {
+    align-self: end;
+}
+
+.blackCell {
+    background-color: black;
+    justify-self: stretch;
+    color: white;
 }
 
 #dice-area {
@@ -32,6 +59,8 @@
     height: 100px;
     inset: 0 0 0 0;
     margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #rolled-dice button {
@@ -56,7 +85,6 @@
 }
 
 #rerolls {
-    display: none;
     position: absolute;
     top: 77%;
     left: 50%;

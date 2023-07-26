@@ -14,7 +14,6 @@ for (let die of dice.children)
 function rollDice() {
     if (isTitleScreen) {
         dice.style.display = "flex";
-        rerollsText.style.display = "initial";
         document.getElementById("title-screen").style.display = "none";
         isTitleScreen = false;
     }

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div style="display: flex;">
+    <div id="container">
         <div id="scores">
             <label>Aces</label>
             <label id="aces"></label>
@@ -32,9 +32,9 @@
             <label>Sixes</label>
             <label id="sixes"></label>
 
-            <label>Subtotal</label>
-            <label><span id="subtotal">0</span>/63</label>
-            <label>+35 Bonus</label><label id="bonus"></label>
+            <label class="blackCell">Subtotal</label>
+            <label class="blackCell"><span id="subtotal">0</span>/63</label>
+            <label class="cellTop blackCell">+35 Bonus</label><label id="bonus" class="cellTop blackCell">-</label>
 
             <label>Choice</label>
             <label id="choice"></label>
@@ -54,14 +54,14 @@
             <label>Yacht</label>
             <label id="yacht"></label>
 
-            <label>Total</label>
-            <label id="total">0</label>
+            <label class="cellBottom blackCell">Total</label>
+            <label id="total" class="cellBottom blackCell">0</label>
         </div>
         <div id="dice-area">
             <div id="title-screen">
                 <p>Yacht Dice</p>
             </div>
-            <p id="rerolls"></p>
+            <p id="turns"></p>
             <div id="rolled-dice">
                 <button></button>
                 <button></button>
@@ -70,6 +70,7 @@
                 <button></button>
             </div>
             <button id="roll">Roll</button>
+            <p id="rerolls"></p>
         </div>
     </div>
     <script src="script.js" async defer></script>
