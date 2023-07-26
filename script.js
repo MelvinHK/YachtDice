@@ -81,6 +81,7 @@ function calculateFourOfKind() {
                 result += value;
         });
 
+    // Add score if fourOfKind or yacht
     document.getElementById("fourOfKind").innerText = isFourOfKind ? result : (diceSet.size == 1) ? diceArray[0] * 5 : 0;
 }
 
@@ -127,7 +128,7 @@ document.getElementById("roll").addEventListener("click", (e) => {
     if (rerolls != 0) {
         diceRollSounds[Math.floor(Math.random() * 3)].play();
         e.target.classList.add("shake");
-        setTimeout(() => e.target.classList.remove("shake"), 620);
+        setTimeout(() => e.target.classList.remove("shake"), 620); // Timeout matches shake animation length
     }
 
     rollDice();
