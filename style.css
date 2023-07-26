@@ -84,11 +84,11 @@ body {
     transform: translateY(-50px);
 }
 
-#rerolls {
+#turns {
+    display: none;
     position: absolute;
-    top: 77%;
-    left: 50%;
-    transform: translate(-50%, -77%);
+    right: 0;
+    padding-right: 10px;
 }
 
 #roll {
@@ -110,6 +110,13 @@ body {
 
 .shake {
     animation: shake 0.62s;
+}
+
+#rerolls {
+    position: absolute;
+    top: 77%;
+    left: 50%;
+    transform: translate(-50%, -77%);
 }
 
 @keyframes shake {

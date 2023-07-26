@@ -12,12 +12,6 @@ for (let die of dice.children)
     });
 
 function rollDice() {
-    if (isTitleScreen) {
-        dice.style.display = "flex";
-        document.getElementById("title-screen").style.display = "none";
-        isTitleScreen = false;
-    }
-
     for (let die of dice.children)
         if (!die.classList.contains("hold")) {
             const randomDieNumber = Math.floor(Math.random() * 6) + 1;
@@ -121,6 +115,13 @@ function calculateYacht() {
 }
 
 document.getElementById("roll").addEventListener("click", (e) => {
+    if (isTitleScreen) {
+        dice.style.display = "flex";
+        document.getElementById("title-screen").style.display = "none";
+        document.getElementById("turns").style.display = "initial";
+        isTitleScreen = false;
+    }
+
     if (rerolls != 0) {
         diceRollSounds[Math.floor(Math.random() * 3)].play();
         e.target.classList.add("shake");
