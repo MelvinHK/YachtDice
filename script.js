@@ -12,9 +12,6 @@ for (let die of dice.children)
     });
 
 function rollDice() {
-    if (rerolls == 0)
-        return;
-
     if (isTitleScreen) {
         dice.style.display = "flex";
         rerollsText.style.display = "initial";
@@ -129,13 +126,13 @@ document.getElementById("roll").addEventListener("click", (e) => {
         diceRollSounds[Math.floor(Math.random() * 3)].play();
         e.target.classList.add("shake");
         setTimeout(() => e.target.classList.remove("shake"), 620); // Timeout matches shake animation length
-    }
 
-    rollDice();
-    calculateBasicCategories();
-    calculateChoice();
-    calculateFourOfKind();
-    calculateFullHouse();
-    calculateStraights();
-    calculateYacht();
+        rollDice();
+        calculateBasicCategories();
+        calculateChoice();
+        calculateFourOfKind();
+        calculateFullHouse();
+        calculateStraights();
+        calculateYacht();
+    }
 });
