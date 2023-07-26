@@ -66,7 +66,8 @@ function countOccurence(n) {
 }
 
 function calculateFourOfKind() {
-    var diceSet = new Set(getDiceNumbers());
+    var diceArray = getDiceNumbers();
+    var diceSet = new Set(diceArray);
     var isFourOfKind = false;
     var result = 0;
 
@@ -80,7 +81,7 @@ function calculateFourOfKind() {
                 result += value;
         });
 
-    document.getElementById("fourOfKind").innerText = (diceSet.size == 1 || isFourOfKind) ? result : 0;
+    document.getElementById("fourOfKind").innerText = isFourOfKind ? result : (diceSet.size == 1) ? diceArray[0] * 5 : 0;
 }
 
 function calculateFullHouse() {
