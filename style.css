@@ -49,6 +49,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 #rolled-dice {
@@ -66,9 +67,9 @@ body {
 #rolled-dice button {
     cursor: pointer;
     background-color: transparent;
+    background-repeat: no-repeat;
     border: none;
     width: 100px;
-    background-repeat: no-repeat;
     transition-duration: 0.25s;
 }
 
