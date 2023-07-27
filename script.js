@@ -2,6 +2,21 @@ var isTitleScreen = true;
 var rerolls = 3;
 var turn = 1;
 
+var score = {
+    aces: 0,
+    deuces: 0,
+    threes: 0,
+    fours: 0,
+    fives: 0,
+    sixes: 0,
+    choice: 0,
+    fourOfKind: 0,
+    fullhouse: 0,
+    smallStraight: 0,
+    largeStraight: 0,
+    yacht: 0
+};
+
 const dice = document.getElementById("rolled-dice");
 const rerollsText = document.getElementById("rerolls");
 
@@ -21,6 +36,7 @@ function rollDice() {
         }
 
     rerollsText.innerText = `Rerolls left: ${--rerolls}`;
+    console.log(score);
 }
 
 function getDiceNumbers() {
@@ -121,6 +137,7 @@ document.getElementById("roll").addEventListener("click", (e) => {
         document.getElementById("title-screen").style.display = "none";
         document.getElementById("turns").style.display = "initial";
         document.getElementById("rerolls").style.visibility = "visible";
+        document.getElementById("scores").style.pointerEvents = "all";
         isTitleScreen = false;
     }
 
@@ -138,3 +155,18 @@ document.getElementById("roll").addEventListener("click", (e) => {
         calculateYacht();
     }
 });
+
+const scoreCategories = document.getElementsByClassName("row-wrapper");
+const turnsText = document.getElementById("turns");
+
+for (let category of scoreCategories) {
+    category.addEventListener("click", () => {
+        var categoryName = category.children[1].id;
+        var scoreAmount = Number(category.children[1].innerText);
+
+        score[categoryName] = scoreAmount;
+        category.classList.add("score-selected");
+
+        turnsText.innerText = `Turn ${++turn}/12`;
+    });
+}

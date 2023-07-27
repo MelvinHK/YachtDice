@@ -23,6 +23,7 @@ body {
     grid-template-rows: repeat(15, 1fr);
     align-items: center;
     overflow: auto;
+    pointer-events: none;
 }
 
 #scores label {
@@ -30,7 +31,7 @@ body {
     transition-duration: 0.25s;
 }
 
-#scores label:not(.blackCell) {
+#scores label:not(.black-cell) {
     cursor: pointer;
 }
 
@@ -38,14 +39,26 @@ body {
     display: contents;
 }
 
-.row-wrapper:hover > label {
+.row-wrapper:hover>label {
     background-color: rgb(255, 255, 177);
 }
 
-.blackCell {
+.black-cell {
     background-color: black;
     justify-self: stretch;
     color: white;
+}
+
+.score-selected>label {
+    pointer-events: none;
+}
+
+.score-selected label:first-child {
+    color: lightgray;
+}
+
+.score-selected label:last-child {
+    color: red;
 }
 
 #dice-area {
