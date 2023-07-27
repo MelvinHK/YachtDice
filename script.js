@@ -3,18 +3,18 @@ var rerolls = 3;
 var turn = 1;
 
 var score = {
-    aces: 0,
-    deuces: 0,
-    threes: 0,
-    fours: 0,
-    fives: 0,
-    sixes: 0,
-    choice: 0,
-    fourOfKind: 0,
-    fullhouse: 0,
-    smallStraight: 0,
-    largeStraight: 0,
-    yacht: 0
+    aces: null,
+    deuces: null,
+    threes: null,
+    fours: null,
+    fives: null,
+    sixes: null,
+    choice: null,
+    fourOfKind: null,
+    fullhouse: null,
+    smallStraight: null,
+    largeStraight: null,
+    yacht: null
 };
 
 const dice = document.getElementById("rolled-dice");
