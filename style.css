@@ -55,6 +55,7 @@ body {
 #rolled-dice {
     display: none;
     justify-content: center;
+    align-items: center;
     column-gap: 10px;
     position: absolute;
     height: 100px;
@@ -66,10 +67,15 @@ body {
 
 #rolled-dice button {
     cursor: pointer;
-    background-color: transparent;
-    background-repeat: no-repeat;
     border: none;
+    background-color: transparent;
+    padding: 0;
     width: 100px;
+    transition-duration: 0.25s;
+}
+
+#rolled-dice button img {
+    pointer-events: none;
     transition-duration: 0.25s;
 }
 

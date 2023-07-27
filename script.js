@@ -16,7 +16,7 @@ function rollDice() {
         if (!die.classList.contains("hold")) {
             const randomDieNumber = Math.floor(Math.random() * 6) + 1;
             die.value = randomDieNumber;
-            die.style.backgroundImage = `url("dice/${randomDieNumber}.svg")`;
+            die.firstChild.src = `dice/${randomDieNumber}.svg`;
         }
 
     rerollsText.innerText = `Rerolls left: ${--rerolls}`;
