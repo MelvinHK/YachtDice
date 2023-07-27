@@ -9,18 +9,20 @@ body {
 #container {
     height: 100vh;
     display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 
 #scores {
     display: grid;
     width: 280px;
-    height: 600px;
+    height: 400px;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: repeat(15, 1fr);
     align-items: center;
-    padding-left: 10px;
+    overflow: auto;
 }
 
 .cellTop {
@@ -39,17 +41,23 @@ body {
 
 #dice-area {
     position: relative;
-    width: 720px;
-    height: 600px;
+    width: 100%;
+    min-height: 215px;
 }
 
 #title-screen {
     position: absolute;
-    font-size: 64px;
-    top: 50%;
+    width: 100%;
+    top: 0%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     text-align: center;
+}
+
+#title-screen h1 {
+    font-weight: normal;
+    margin-top: 0;
+    font-size: 64px;
 }
 
 #rolled-dice {
@@ -60,7 +68,6 @@ body {
     position: absolute;
     height: 100px;
     inset: 0 0 0 0;
-    margin: auto;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -79,10 +86,6 @@ body {
     transition-duration: 0.25s;
 }
 
-#rolled-dice button:hover {
-    scale: 1.1;
-}
-
 #rolled-dice button:active {
     scale: 0.95;
 }
@@ -92,11 +95,19 @@ body {
 }
 
 #turns {
+    width: 100%;
+    text-align: center;
     display: none;
     position: absolute;
-    right: 0;
-    padding-right: 10px;
-    margin-top: 10px;
+    bottom: 0;
+}
+
+#roll-container {
+    position: absolute;
+    text-align: center;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -75%);
 }
 
 #roll {
@@ -104,10 +115,7 @@ body {
     height: 60px;
     font-size: 48px;
     cursor: pointer;
-    position: absolute;
     background-color: transparent;
-    inset: 270px 0 0 0;
-    margin: auto;
     border: none;
     transition-duration: 0.25s;
 }
@@ -121,10 +129,43 @@ body {
 }
 
 #rerolls {
-    position: absolute;
-    top: 77%;
-    left: 50%;
-    transform: translate(-50%, -77%);
+    visibility: hidden;
+    margin: 0;
+}
+
+@media only screen and (min-width: 760px) {
+    #title-screen {
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #container {
+        flex-direction: row;
+    }
+
+    #scores {
+        height: 80%;
+    }
+
+    #dice-area {
+        width: 700px;
+        height: 80%;
+        min-height: 445px;
+    }
+
+    #turns {
+        text-align: right;
+        top: 0;
+        margin: 10px 0 0 0;
+    }
+
+    #rolled-dice {
+        margin: auto;
+    }
+
+    #rolled-dice button:hover {
+        scale: 1.1;
+    }
 }
 
 @keyframes shake {

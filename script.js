@@ -119,6 +119,7 @@ document.getElementById("roll").addEventListener("click", (e) => {
         dice.style.display = "flex";
         document.getElementById("title-screen").style.display = "none";
         document.getElementById("turns").style.display = "initial";
+        document.getElementById("rerolls").style.visibility = "visible";
         isTitleScreen = false;
     }
 
