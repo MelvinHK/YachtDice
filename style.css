@@ -145,6 +145,7 @@ body {
 
     #scores {
         height: 80%;
+        padding-left: 10px;
     }
 
     #dice-area {
@@ -154,9 +155,11 @@ body {
     }
 
     #turns {
-        text-align: right;
+        width: auto;
+        right: 0;
         top: 0;
         margin: 10px 0 0 0;
+        padding-right: 10px;
     }
 
     #rolled-dice {
