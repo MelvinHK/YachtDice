@@ -25,12 +25,21 @@ body {
     overflow: auto;
 }
 
-.cellTop {
-    align-self: start;
+#scores label {
+    padding: 10px;
+    transition-duration: 0.25s;
 }
 
-.cellBottom {
-    align-self: end;
+#scores label:not(.blackCell) {
+    cursor: pointer;
+}
+
+.row-wrapper {
+    display: contents;
+}
+
+.row-wrapper:hover > label {
+    background-color: rgb(255, 255, 177);
 }
 
 .blackCell {

@@ -1,5 +1,6 @@
 var isTitleScreen = true;
 var rerolls = 3;
+var turn = 1;
 
 const dice = document.getElementById("rolled-dice");
 const rerollsText = document.getElementById("rerolls");
