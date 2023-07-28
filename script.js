@@ -1,6 +1,7 @@
 var isTitleScreen = true;
 var rerolls = 3;
 var turn = 1;
+var isNewTurn = false;
 
 var scores = {
     aces: 0,
@@ -21,7 +22,16 @@ var subtotal = 0;
 var total = 0;
 
 const dice = document.getElementById("rolled-dice");
+
+const rollButton = document.getElementById("roll");
 const rerollsText = document.getElementById("rerolls");
+
+const scoresGrid = document.getElementById("scores");
+const scoreCategories = document.getElementsByClassName("row-wrapper");
+const bonus = document.getElementById("bonus");
+
+const heading = document.getElementById("title-screen");
+const turnsText = document.getElementById("turns");
 
 const diceRollSounds = [new Audio("sounds/diceRoll.mp3"), new Audio("sounds/diceRoll2.mp3"), new Audio("sounds/diceRoll3.mp3")];
 
@@ -97,7 +107,7 @@ function calculateFourOfKind() {
                 result += value;
         });
 
-    // Add score if fourOfKind or yacht
+    // Add score if fourOfKind or yacht.
     updateScore("fourOfKind", isFourOfKind ? result : (diceSet.size == 1) ? diceArray[0] * 5 : 0);
 }
 
@@ -138,48 +148,84 @@ function calculateYacht() {
     updateScore("yacht", (diceSet.size == 1) ? 50 : 0);
 }
 
+function toggleScoresPointerEvents() {
+    Array.from(scoreCategories).forEach((category) =>
+        category.style.pointerEvents = (category.style.pointerEvents == "all") ? "none" : "all"
+    );
+}
+
 document.getElementById("roll").addEventListener("click", (e) => {
-    if (isTitleScreen) {
-        dice.style.display = "flex";
-        document.getElementById("title-screen").style.display = "none";
-        document.getElementById("turns").style.display = "initial";
-        document.getElementById("rerolls").style.visibility = "visible";
-        document.getElementById("scores").style.pointerEvents = "all";
-        isTitleScreen = false;
+    if (rerolls == 0)
+        return;
+
+    if (isTitleScreen || isNewTurn) {
+        rerollsText.style.visibility = "visible";
+        toggleScoresPointerEvents();
+
+        if (isTitleScreen) {
+            dice.style.display = "flex";
+            heading.style.display = "none";
+            turnsText.style.display = "initial";
+            isTitleScreen = false;
+        }
+
+        if (isNewTurn) {
+            dice.classList.remove("dice-disabled");
+            rollButton.innerText = "Roll";
+            isNewTurn = false;
+        }
     }
 
-    if (rerolls != 0) {
-        diceRollSounds[Math.floor(Math.random() * 3)].play();
-        e.target.classList.add("shake");
-        setTimeout(() => e.target.classList.remove("shake"), 620); // Timeout matches shake animation length
+    diceRollSounds[Math.floor(Math.random() * 3)].play();
+    e.target.classList.add("shake");
+    setTimeout(() => e.target.classList.remove("shake"), 620); // Timeout matches shake animation length.
 
-        rollDice();
-        calculateBasicCategories();
-        calculateChoice();
-        calculateFourOfKind();
-        calculateFullHouse();
-        calculateStraights();
-        calculateYacht();
-    }
-
-    console.log();
+    rollDice();
+    calculateBasicCategories();
+    calculateChoice();
+    calculateFourOfKind();
+    calculateFullHouse();
+    calculateStraights();
+    calculateYacht();
 });
 
-const scoreCategories = document.getElementsByClassName("row-wrapper");
-const turnsText = document.getElementById("turns");
+// Score saving events.
+Array.from(scoreCategories).forEach((category, index) => {
+    category.addEventListener("click", () => {
+        category.classList.add("score-saved");
 
-// When se
-Array.from(scoreCategories).forEach((value, index) => {
-    value.addEventListener("click", () => {
-        value.classList.add("score-saved");
-        turnsText.innerText = `Turn ${++turn}/12`;
-
-        // Update total and subtotal
         var categoryName = Object.keys(scores)[index];
-        document.getElementById("total").innerText = total += scores[categoryName];
-        if (index < 6)
+        if (index < 6) {
             document.getElementById("subtotal").innerText = subtotal += scores[categoryName];
+            if (subtotal >= 63) {
+                total += 35;
+                bonus.innerText = "35";
+                bonus.style.color = "red";
+            }
+        }
+        document.getElementById("total").innerText = total += scores[categoryName];
 
-        scores[categoryName] = "saved";
+        scores[categoryName] = "saved"; // Mark as saved AFTER its value is added to total.
+        toggleScoresPointerEvents();
+
+        rerolls = 3;
+        rerollsText.style.visibility = "hidden";
+
+        dice.classList.add("dice-disabled");
+        for (let die of dice.children)
+            die.classList.remove("hold");
+
+        isNewTurn = true;
+        turnsText.innerText = `Turn ${++turn}/12`;
+        if (turn > 12) {
+            dice.style.display = "none";
+            turnsText.style.display = "none";
+            rollButton.innerText = total;
+            rollButton.style.pointerEvents = "none";
+            heading.style.display = "initial";
+            heading.firstElementChild.innerText = "Final Score:";
+        }
+        else
+            rollButton.innerText = "New Roll";
     });
 });

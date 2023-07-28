@@ -23,7 +23,6 @@ body {
     grid-template-rows: repeat(15, 1fr);
     align-items: center;
     overflow: auto;
-    pointer-events: none;
 }
 
 #scores label {
@@ -37,6 +36,7 @@ body {
 
 .row-wrapper {
     display: contents;
+    pointer-events: none;
 }
 
 .row-wrapper:hover>label {
@@ -94,6 +94,11 @@ body {
     padding-right: 10px;
 }
 
+.dice-disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
 #rolled-dice button {
     cursor: pointer;
     border: none;
@@ -140,6 +145,10 @@ body {
     background-color: transparent;
     border: none;
     transition-duration: 0.25s;
+    white-space: nowrap;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 #roll:active {
