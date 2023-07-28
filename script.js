@@ -128,19 +128,25 @@ function calculateFullHouse() {
     updateScore("fullHouse", isFullHouse ? result : 0);
 }
 
-function calculateStraights() {
+function calculateStraights(type) {
     var sortedDice = getDiceNumbers().sort();
     var straightCount = 0;
+    var straightsRequired = (type == "small") ? 3 : 4;
 
     sortedDice.forEach((value, index) => {
         var difference = sortedDice[index + 1] - value;
-        if (difference == 1)
+        if (difference == 1) {
             straightCount++;
-        else if (difference >= 2)
-            straightCount--;
+            if (straightCount == straightsRequired)
+                return;
+        }
+        else
+            straightCount == 0;
     });
-    updateScore("smallStraight", (straightCount >= 3) ? 15 : 0);
-    updateScore("largeStraight", (straightCount == 4) ? 30 : 0);
+    if (type == "small")
+        updateScore("smallStraight", (straightCount >= 3) ? 15 : 0);
+    else
+        updateScore("largeStraight", (straightCount == 4) ? 30 : 0);
 }
 
 function calculateYacht() {
@@ -185,7 +191,8 @@ document.getElementById("roll").addEventListener("click", (e) => {
     calculateChoice();
     calculateFourOfKind();
     calculateFullHouse();
-    calculateStraights();
+    calculateStraights("small");
+    calculateStraights("large");
     calculateYacht();
 });
 
