@@ -49,15 +49,15 @@ body {
     color: white;
 }
 
-.score-selected>label {
+.score-saved>label {
     pointer-events: none;
 }
 
-.score-selected label:first-child {
+.score-saved label:first-child {
     color: lightgray;
 }
 
-.score-selected label:last-child {
+.score-saved label:last-child {
     color: red;
 }
 
@@ -113,7 +113,7 @@ body {
 }
 
 .hold {
-    transform: translateY(-50px);
+    transform: translateY(-50%);
 }
 
 #turns {

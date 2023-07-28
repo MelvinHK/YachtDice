@@ -2,20 +2,23 @@ var isTitleScreen = true;
 var rerolls = 3;
 var turn = 1;
 
-var score = {
-    aces: null,
-    deuces: null,
-    threes: null,
-    fours: null,
-    fives: null,
-    sixes: null,
-    choice: null,
-    fourOfKind: null,
-    fullhouse: null,
-    smallStraight: null,
-    largeStraight: null,
-    yacht: null
+var scores = {
+    aces: 0,
+    deuces: 0,
+    threes: 0,
+    fours: 0,
+    fives: 0,
+    sixes: 0,
+    choice: 0,
+    fourOfKind: 0,
+    fullhouse: 0,
+    smallStraight: 0,
+    largeStraight: 0,
+    yacht: 0
 };
+
+var subtotal = 0;
+var total = 0;
 
 const dice = document.getElementById("rolled-dice");
 const rerollsText = document.getElementById("rerolls");
@@ -36,7 +39,6 @@ function rollDice() {
         }
 
     rerollsText.innerText = `Rerolls left: ${--rerolls}`;
-    console.log(score);
 }
 
 function getDiceNumbers() {
@@ -46,6 +48,13 @@ function getDiceNumbers() {
     return result;
 }
 
+function updateScore(categoryName, result) {
+    if (scores[categoryName] == "saved")
+        return;
+    scores[categoryName] = result;
+    document.getElementById(categoryName).innerText = result;
+}
+
 function calculateBasicCategories() {
     ["aces", "deuces", "threes", "fours", "fives", "sixes"].forEach((name, index) => {
         var result = 0;
@@ -53,14 +62,14 @@ function calculateBasicCategories() {
             if (value == index + 1)
                 result += value;
         });
-        document.getElementById(name).innerText = result;
+        updateScore(name, result);
     });
 }
 
 function calculateChoice() {
     var result = 0;
     getDiceNumbers().forEach((value) => result += value);
-    document.getElementById("choice").innerText = result;
+    updateScore("choice", result);
 }
 
 function countOccurence(n) {
@@ -89,7 +98,7 @@ function calculateFourOfKind() {
         });
 
     // Add score if fourOfKind or yacht
-    document.getElementById("fourOfKind").innerText = isFourOfKind ? result : (diceSet.size == 1) ? diceArray[0] * 5 : 0;
+    updateScore("fourOfKind", isFourOfKind ? result : (diceSet.size == 1) ? diceArray[0] * 5 : 0);
 }
 
 function calculateFullHouse() {
@@ -106,8 +115,7 @@ function calculateFullHouse() {
             else
                 result += value * 2;
         });
-
-    document.getElementById("fullHouse").innerText = isFullHouse ? result : 0;
+    updateScore("fullHouse", isFullHouse ? result : 0);
 }
 
 function calculateStraights() {
@@ -121,14 +129,13 @@ function calculateStraights() {
         else if (difference >= 2)
             straightCount--;
     });
-
-    document.getElementById("smallStraight").innerText = (straightCount >= 3) ? 15 : 0;
-    document.getElementById("largeStraight").innerText = (straightCount == 4) ? 30 : 0;
+    updateScore("smallStraight", (straightCount >= 3) ? 15 : 0);
+    updateScore("largeStraight", (straightCount == 4) ? 30 : 0);
 }
 
 function calculateYacht() {
     var diceSet = new Set(getDiceNumbers());
-    document.getElementById("yacht").innerText = (diceSet.size == 1) ? 50 : 0;
+    updateScore("yacht", (diceSet.size == 1) ? 50 : 0);
 }
 
 document.getElementById("roll").addEventListener("click", (e) => {
@@ -154,19 +161,25 @@ document.getElementById("roll").addEventListener("click", (e) => {
         calculateStraights();
         calculateYacht();
     }
+
+    console.log();
 });
 
 const scoreCategories = document.getElementsByClassName("row-wrapper");
 const turnsText = document.getElementById("turns");
 
-for (let category of scoreCategories) {
-    category.addEventListener("click", () => {
-        var categoryName = category.children[1].id;
-        var scoreAmount = Number(category.children[1].innerText);
-
-        score[categoryName] = scoreAmount;
-        category.classList.add("score-selected");
-
+// When se
+Array.from(scoreCategories).forEach((value, index) => {
+    value.addEventListener("click", () => {
+        value.classList.add("score-saved");
         turnsText.innerText = `Turn ${++turn}/12`;
+
+        // Update total and subtotal
+        var categoryName = Object.keys(scores)[index];
+        document.getElementById("total").innerText = total += scores[categoryName];
+        if (index < 6)
+            document.getElementById("subtotal").innerText = subtotal += scores[categoryName];
+
+        scores[categoryName] = "saved";
     });
-}
+});
