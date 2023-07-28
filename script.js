@@ -12,7 +12,7 @@ var scores = {
     sixes: 0,
     choice: 0,
     fourOfKind: 0,
-    fullhouse: 0,
+    fullHouse: 0,
     smallStraight: 0,
     largeStraight: 0,
     yacht: 0
