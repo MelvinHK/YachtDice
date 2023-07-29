@@ -128,25 +128,29 @@ function calculateFullHouse() {
     updateScore("fullHouse", isFullHouse ? result : 0);
 }
 
-function calculateStraights(type) {
+function calculateStraights() {
     var sortedDice = getDiceNumbers().sort();
-    var straightCount = 0;
-    var straightsRequired = (type == "small") ? 3 : 4;
 
-    sortedDice.forEach((value, index) => {
-        var difference = sortedDice[index + 1] - value;
-        if (difference == 1) {
-            straightCount++;
-            if (straightCount == straightsRequired)
-                return;
+    // 3 = smallStraight, 4 = largeStraight
+    for (let i = 3; i < 5; i++) {
+        var straightCount = 0;
+
+        for (let j = 0; j < sortedDice.length; j++) {
+            var difference = sortedDice[j + 1] - sortedDice[j];
+            if (difference == 1) {
+                straightCount++;
+                if (straightCount == i)
+                    break;
+            }
+            else if (difference != 0)
+                straightCount = 0;
         }
+
+        if (i == 3)
+            updateScore("smallStraight", (straightCount == 3) ? 15 : 0);
         else
-            straightCount == 0;
-    });
-    if (type == "small")
-        updateScore("smallStraight", (straightCount >= 3) ? 15 : 0);
-    else
-        updateScore("largeStraight", (straightCount == 4) ? 30 : 0);
+            updateScore("largeStraight", (straightCount == 4) ? 30 : 0);
+    }
 }
 
 function calculateYacht() {
@@ -191,8 +195,7 @@ document.getElementById("roll").addEventListener("click", (e) => {
     calculateChoice();
     calculateFourOfKind();
     calculateFullHouse();
-    calculateStraights("small");
-    calculateStraights("large");
+    calculateStraights();
     calculateYacht();
 });
 
