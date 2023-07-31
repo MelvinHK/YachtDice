@@ -205,6 +205,9 @@ Array.from(scoreCategories).forEach((category, index) => {
         category.classList.add("score-saved");
 
         var categoryName = Object.keys(scores)[index];
+        if (isNewTurn || scores[categoryName] == "saved")
+            return;
+
         if (index < 6) {
             document.getElementById("subtotal").innerText = subtotal += scores[categoryName];
             if (subtotal >= 63) {
