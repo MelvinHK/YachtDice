@@ -233,10 +233,10 @@ Array.from(scoreCategories).forEach((category, index) => {
         if (turn > 12) {
             dice.style.display = "none";
             turnsText.style.display = "none";
-            rollButton.innerText = total;
             rollButton.style.pointerEvents = "none";
             heading.style.display = "initial";
             heading.firstElementChild.innerText = "Final Score:";
+            rollButton.innerText = total;
         }
         else
             rollButton.innerText = "New Roll";
